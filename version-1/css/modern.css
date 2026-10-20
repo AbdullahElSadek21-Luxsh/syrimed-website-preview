@@ -43,6 +43,7 @@
   --sm-font: "Plus Jakarta Sans", "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
   --sm-header-h: 78px;
+  --sm-hero-title: clamp(2.2rem, 4.2vw, 3.6rem);
   --sm-container: 1440px;
 }
 
@@ -341,7 +342,9 @@ section.bg-pharmacovigilance .bt_bb_headline_content:before { background: linear
 .sm-page-hero .customposition1 { position: relative !important; top: auto !important; }
 
 /* About Us: the legacy photo collage is absolutely positioned — reserve its height */
-.bt_bb_column:has(> .bt_bb_column_content .aboutUsWhoWeAreimg1) { min-height: 620px; }
+@media (min-width: 992px) {
+  .bt_bb_column:has(> .bt_bb_column_content .aboutUsWhoWeAreimg1) { min-height: 620px; }
+}
 .bt_bb_wrapper > .bt_bb_section.bt_bb_background_image:first-child .bt_bb_section_bottom_section_coverage_image { z-index: 3; }
 
 .sm-page-hero h1, .sm-page-hero h2, .sm-page-hero h3 {
@@ -1340,6 +1343,41 @@ body.sm-home .bt-content-wrap { padding-top: 0 !important; margin-top: 0 !import
   .sm-hero__scroll { display: none; }
 }
 @media (max-width: 767px) {
+  /* page banners: room for the title and intro above the wave */
+  .sm-page-hero > .bt_bb_port { padding-top: 48px !important; padding-bottom: 96px !important; }
+  .sm-page-hero p, .sm-page-hero .font_18 p { font-size: 1rem !important; }
+  .sm-crumb { margin-bottom: 14px; }
+
+  /* Partnership: regulator / event carousels as a compact 2-column grid */
+  body #carouselExampleIndicators .slide-box, body #carouselExampleIndicators1 .slide-box {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  body #carouselExampleIndicators .slide-box .card, body #carouselExampleIndicators1 .slide-box .card { width: auto !important; margin: 0 !important; }
+  body #carouselExampleIndicators .card-body img, body #carouselExampleIndicators1 .card-body img {
+    width: 100% !important;
+    height: 70px !important;
+    object-fit: contain;
+  }
+  body #carouselExampleIndicators .card-body, body #carouselExampleIndicators1 .card-body {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    padding: 8px !important;
+  }
+  body #carouselExampleIndicators .card-title, body #carouselExampleIndicators1 .card-title {
+    font-size: 12px !important;
+    margin: 6px 0 0 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    position: static !important;
+    width: 100%;
+  }
+
+  /* legacy world map: a phone-sized canvas instead of a fixed 500px block */
+  body .bt-content #chartdiv { height: 260px !important; }
+
   /* wide legacy tables scroll inside their own box instead of being clipped */
   body .bt-content-wrap table:not(.dataTable) { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   body .dataTables_wrapper .dataTables_scrollBody { overflow-x: auto !important; }

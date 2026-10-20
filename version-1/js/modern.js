@@ -196,6 +196,10 @@
     orbs.innerHTML = "<span></span><span></span>";
     first.insertBefore(orbs, media.nextSibling);
 
+    // the theme pins banner height and title size per page ID on phones; inline !important outranks it
+    first.style.setProperty("height", "auto", "important");
+    var heroTitle = first.querySelector(".bt_bb_headline h1, .bt_bb_headline h2, .bt_bb_headline h3");
+    if (heroTitle) heroTitle.style.setProperty("font-size", "var(--sm-hero-title)", "important");
     decorateHeroTitle(first);
     $all("p", first).forEach(function (p, i) {
       p.setAttribute("data-reveal", "");
