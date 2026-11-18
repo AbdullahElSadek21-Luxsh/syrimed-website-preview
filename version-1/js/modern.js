@@ -332,7 +332,7 @@
       if (tilt) tilt.style.transition = "transform .8s cubic-bezier(.22,1,.36,1)";
     }
 
-    $all(".sm-tile, .sm-offer__card, .bt_bb_card_image").forEach(function (tile) {
+    $all(".sm-tile, .sm-offer__card, .bt_bb_card_image, .sm-choice__card").forEach(function (tile) {
       tile.addEventListener("mousemove", function (e) {
         var r = tile.getBoundingClientRect();
         tile.style.setProperty("--sm-x", (e.clientX - r.left) + "px");
