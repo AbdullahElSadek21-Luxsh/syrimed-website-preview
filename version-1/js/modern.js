@@ -40,6 +40,30 @@
   }
 
   /* Products A–Z: DataTables builds its search box on jQuery ready, so finish it after load */
+  /* ------------------------------------------------------------------
+     Back-to-top button: the theme nests it in the footer, whose stacking
+     context sits under the page content, so clicks never reached it.
+     Move it to <body> and scroll natively.
+     ------------------------------------------------------------------ */
+  var toTop = document.querySelector(".progress-wrap");
+  if (toTop) {
+    body.appendChild(toTop);
+    toTop.setAttribute("role", "button");
+    toTop.setAttribute("tabindex", "0");
+    toTop.setAttribute("aria-label", "Back to top");
+    var goTop = function (e) {
+      e.preventDefault();
+      e.stopPropagation(); // skip the theme's jQuery animation, which fights CSS smooth scrolling
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    };
+    document.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest(".progress-wrap")) goTop(e);
+    }, true);
+    toTop.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") goTop(e);
+    });
+  }
+
   // the table may be initialised after window load, so retry briefly until its search box exists
   var tableTries = 0;
   (function finishTables() {
