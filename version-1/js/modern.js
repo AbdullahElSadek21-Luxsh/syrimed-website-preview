@@ -41,6 +41,14 @@
 
   /* Products A–Z: DataTables builds its search box on jQuery ready, so finish it after load */
   /* ------------------------------------------------------------------
+     Modals: Bootstrap puts its backdrop on <body>; a modal nested inside a
+     stacking context ends up underneath it. Keep every modal at body level.
+     ------------------------------------------------------------------ */
+  $all(".modal").forEach(function (m) {
+    if (m.parentElement !== body) body.appendChild(m);
+  });
+
+  /* ------------------------------------------------------------------
      Back-to-top button: the theme nests it in the footer, whose stacking
      context sits under the page content, so clicks never reached it.
      Move it to <body> and scroll natively.

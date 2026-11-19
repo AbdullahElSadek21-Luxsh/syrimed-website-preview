@@ -97,7 +97,9 @@ img { max-width: 100%; }
 
 /* Page enter transition */
 @keyframes sm-page-in { from { opacity: 0; } to { opacity: 1; } }
-.bt-content-wrap { animation: sm-page-in .6s ease both; }
+/* "backwards" (not "both"): once the fade ends it leaves no stacking context behind,
+   so fixed elements inside the content (modals) can still sit above Bootstrap's backdrop */
+.bt-content-wrap { animation: sm-page-in .6s ease backwards; }
 body.sm-leaving .bt-page-wrap { opacity: 0; transition: opacity .25s ease; }
 
 /* --------------------------------------------------------------------------
@@ -598,6 +600,8 @@ body .card { border-radius: var(--sm-radius); border-color: var(--sm-line); box-
 body .modal-content { border: 0; border-radius: var(--sm-radius-lg); overflow: hidden; box-shadow: var(--sm-shadow-lg); }
 body .modal-header.btn-primary, body .modal-header { background: var(--sm-grad) !important; border: 0; color: #fff; }
 body .modal-header .close { color: #fff; opacity: .85; text-shadow: none; }
+/* some modal titles carry a dark "heading-text-color" class; keep them readable on the blue header */
+body .modal-header .modal-title, body .modal-header .modal-title * { color: #fff !important; }
 body .modal-backdrop.show { opacity: .55; background: var(--sm-navy-950); }
 body .modal.fade .modal-dialog { transform: translateY(24px) scale(.98); transition: transform .45s var(--sm-ease); }
 body .modal.show .modal-dialog { transform: none; }
@@ -747,8 +751,9 @@ body .bt-site-footer hr { border-color: rgba(255, 255, 255, .1) !important; posi
 body .bt-site-footer .footer_logo img { max-width: 190px; }
 
 /* Footer pre-CTA banner — overlaps the top of the footer */
-.bt-content-wrap { position: relative; z-index: 2; }
-.bt-site-footer { position: relative; z-index: 1; }
+/* Only the banner is lifted. Giving the content wrapper a z-index would trap its modals
+   and the back-to-top button underneath Bootstrap's backdrop. */
+.bt-site-footer { position: relative; }
 .sm-footer-cta { position: relative; z-index: 3; padding: 0 20px; margin-bottom: -80px; }
 .sm-footer-cta__inner {
   position: relative;

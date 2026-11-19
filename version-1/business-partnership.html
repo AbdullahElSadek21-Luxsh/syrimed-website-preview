@@ -1643,7 +1643,8 @@
   <script src="js/typed.min.js"></script>
 
   <script>
-    $(document).ready(function () {
+    // the WordPress jQuery build calls noConflict(), so $ is not the Bootstrap-enabled copy here
+    jQuery(function ($) {
       $('[data-toggle="popover"]').popover();
     });
   </script>
